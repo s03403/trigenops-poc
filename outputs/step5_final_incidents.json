@@ -1,0 +1,54 @@
+[
+  {
+    "run_timestamp": "2026-05-06T12:38:02.322180",
+    "count": 1,
+    "data": [
+      {
+        "incident_id": "INC-5ee60980",
+        "severity": "P2",
+        "application": "ASCM",
+        "environment": "PROD",
+        "assignment_group": "ASCM App Support",
+        "title": "[ASCM] Anomaly detected: ASCM Daily Data Check",
+        "description": "**Incident Description:**  \nThe ASCM application in the PROD environment is experiencing a failure in the ASCM Daily Data Check rule, detected on the business date 2026-05-06. The rule failed due to the absence of the expected TARGETDATE value \"2026-05-06\" in the METADATA table, with the observed value being \"None.\" Logs indicate that the job run on 2026-04-26 loaded data for TARGETDATE \"2026-04-26,\" skipping 3 records due to null TARGETDATE values, resulting in incomplete data (841 of 844 records loaded). This incomplete data is the root cause of the rule failure during validation. The business impact includes potential delays or inaccuracies in downstream processes reliant on the TARGETDATE validation.",
+        "evidence_summary": {
+          "detections": [
+            {
+              "check_id": "Target Frequency",
+              "rule": "ASCM Daily Data Check",
+              "result": "FAIL",
+              "evidence": "No TARGETDATE found in METADATA table | LLM: The ASCM Daily Data Check rule failed because the observed value for the target date was \"None,\" while the expected value was \"2026-05-06.\" Logs indicate that the most recent job on 2026-04-26 loaded data for the target date \"2026-04-26,\" with 3 records skipped due to null TARGETDATE values."
+            }
+          ],
+          "business_date": "2026-05-06",
+          "correlation_summary": "The ASCM Daily Data Check failure is related to the 2026-04-26 job run, where 3 records were skipped due to null TARGETDATE values. Logs confirm that only 841 of 844 records were loaded into the METADATA table, and the target date loaded was 2026-04-26 instead of the expected 2026-05-06. This incomplete data likely caused the rule failure during validation."
+        },
+        "correlation_summary": "The ASCM Daily Data Check failure is related to the 2026-04-26 job run, where 3 records were skipped due to null TARGETDATE values. Logs confirm that only 841 of 844 records were loaded into the METADATA table, and the target date loaded was 2026-04-26 instead of the expected 2026-05-06. This incomplete data likely caused the rule failure during validation.",
+        "advisor_payload": {
+          "incident_id": "INC-5ee60980",
+          "severity": "P2",
+          "application": "ASCM",
+          "detections": [
+            {
+              "detection_id": "DET-fc16e372",
+              "signal_id": "SIG-88970f05",
+              "check_id": "Target Frequency",
+              "application": "ASCM",
+              "result": "FAIL",
+              "rule_name": "ASCM Daily Data Check",
+              "confidence": "high",
+              "evidence": "No TARGETDATE found in METADATA table | LLM: The ASCM Daily Data Check rule failed because the observed value for the target date was \"None,\" while the expected value was \"2026-05-06.\" Logs indicate that the most recent job on 2026-04-26 loaded data for the target date \"2026-04-26,\" with 3 records skipped due to null TARGETDATE values.",
+              "proposed_severity": "P2"
+            }
+          ],
+          "correlation_summary": "The ASCM Daily Data Check failure is related to the 2026-04-26 job run, where 3 records were skipped due to null TARGETDATE values. Logs confirm that only 841 of 844 records were loaded into the METADATA table, and the target date loaded was 2026-04-26 instead of the expected 2026-05-06. This incomplete data likely caused the rule failure during validation.",
+          "business_date": "2026-05-06"
+        },
+        "created_at": "2026-05-06 12:37:57.442057",
+        "llm_input": "You are preparing an ITSM incident description for ServiceNow.\n\nIncident details:\nApplication: ASCM\nEnvironment: PROD\nSeverity: P2\nDetections: ASCM Daily Data Check: No TARGETDATE found in METADATA table | LLM: The ASCM Daily Data Check rule failed because the observed value for the target date was \"None,\" while the expected value was \"2026-05-06.\" Logs indicate that the most recent job on 2026-04-26 loaded data for the target date \"2026-04-26,\" with 3 records skipped due to null TARGETDATE values.\nCorrelation: The ASCM Daily Data Check failure is related to the 2026-04-26 job run, where 3 records were skipped due to null TARGETDATE values. Logs confirm that only 841 of 844 records were loaded into the METADATA table, and the target date loaded was 2026-04-26 instead of the expected 2026-05-06. This incomplete data likely caused the rule failure during validation.\nBusiness Date: 2026-05-06\n\nRelevant application logs (retrieved from log store):\n[2026-04-26T02:13:22.780Z] [WARN] (load_target_frequency) [WARN] Job 'load_target_frequency' completed with warnings. 3 records skipped due to null TARGETDATE values. Loaded 841 of 844 records.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 841\n  rows_skipped: 3\n  duration_seconds: 13.1\n  target_date_loaded: 2026-04-26\n\n[2026-04-27T02:11:55.201Z] [INFO] (load_target_frequency) [INFO] Job 'load_target_frequency' completed successfully. Loaded 832 TGT_FREQUENCY records into ascm_web.METADATA for TARGETDATE 2026-04-27. Duration: 11.9s.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 832\n  duration_seconds: 11.9\n  target_date_loaded: 2026-04-27\n\n[2026-04-21T02:12:33.100Z] [INFO] (load_target_frequency) [INFO] Job 'load_target_frequency' completed successfully. Loaded 828 TGT_FREQUENCY records into ascm_web.METADATA for TARGETDATE 2026-04-21. Duration: 12.8s.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 828\n  duration_seconds: 12.8\n  target_date_loaded: 2026-04-21\n\n[2026-04-19T02:11:59.770Z] [INFO] (load_target_frequency) [INFO] Job 'load_target_frequency' completed successfully. Loaded 843 TGT_FREQUENCY records into ascm_web.METADATA for TARGETDATE 2026-04-19. Duration: 11.5s.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 843\n  duration_seconds: 11.5\n  target_date_loaded: 2026-04-19\n\n[2026-04-28T02:12:07.445Z] [INFO] (load_target_frequency) [INFO] Job 'load_target_frequency' completed successfully. Loaded 847 TGT_FREQUENCY records into ascm_web.METADATA for TARGETDATE 2026-04-28. Duration: 12.4s.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 847\n  duration_seconds: 12.4\n  target_date_loaded: 2026-04-28\n\nGenerate a professional incident description that includes:\n- What is affected\n- Since when\n- Root cause (if logs provide evidence)\n- Business impact\n\nRules:\n- Use evidence from logs to state root cause when available.\n- If no log evidence, do NOT speculate root cause.\n- Be factual and concise.\n- Use professional ITSM language.\n\nReturn plain text (3-5 sentences).\n",
+        "llm_output": "**Incident Description:**  \nThe ASCM application in the PROD environment is experiencing a failure in the ASCM Daily Data Check rule, detected on the business date 2026-05-06. The rule failed due to the absence of the expected TARGETDATE value \"2026-05-06\" in the METADATA table, with the observed value being \"None.\" Logs indicate that the job run on 2026-04-26 loaded data for TARGETDATE \"2026-04-26,\" skipping 3 records due to null TARGETDATE values, resulting in incomplete data (841 of 844 records loaded). This incomplete data is the root cause of the rule failure during validation. The business impact includes potential delays or inaccuracies in downstream processes reliant on the TARGETDATE validation.",
+        "rag_context": "[2026-04-26T02:13:22.780Z] [WARN] (load_target_frequency) [WARN] Job 'load_target_frequency' completed with warnings. 3 records skipped due to null TARGETDATE values. Loaded 841 of 844 records.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 841\n  rows_skipped: 3\n  duration_seconds: 13.1\n  target_date_loaded: 2026-04-26\n\n[2026-04-27T02:11:55.201Z] [INFO] (load_target_frequency) [INFO] Job 'load_target_frequency' completed successfully. Loaded 832 TGT_FREQUENCY records into ascm_web.METADATA for TARGETDATE 2026-04-27. Duration: 11.9s.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 832\n  duration_seconds: 11.9\n  target_date_loaded: 2026-04-27\n\n[2026-04-21T02:12:33.100Z] [INFO] (load_target_frequency) [INFO] Job 'load_target_frequency' completed successfully. Loaded 828 TGT_FREQUENCY records into ascm_web.METADATA for TARGETDATE 2026-04-21. Duration: 12.8s.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 828\n  duration_seconds: 12.8\n  target_date_loaded: 2026-04-21\n\n[2026-04-19T02:11:59.770Z] [INFO] (load_target_frequency) [INFO] Job 'load_target_frequency' completed successfully. Loaded 843 TGT_FREQUENCY records into ascm_web.METADATA for TARGETDATE 2026-04-19. Duration: 11.5s.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 843\n  duration_seconds: 11.5\n  target_date_loaded: 2026-04-19\n\n[2026-04-28T02:12:07.445Z] [INFO] (load_target_frequency) [INFO] Job 'load_target_frequency' completed successfully. Loaded 847 TGT_FREQUENCY records into ascm_web.METADATA for TARGETDATE 2026-04-28. Duration: 12.4s.\nDetails:\n  job_schedule: daily 02:00 UTC\n  source_system: Oracle ERP (ascm-prod-ora.uniper.energy:1521)\n  target_table: ascm_web.METADATA\n  document_type: TGT_FREQUENCY\n  rows_loaded: 847\n  duration_seconds: 12.4\n  target_date_loaded: 2026-04-28"
+      }
+    ]
+  }
+]

@@ -1,0 +1,19 @@
+# Observer-Advisor Pipeline
+
+# LangGraph
+langgraph>=0.2.0
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+
+# Data models
+pydantic>=2.0
+
+# Environment
+python-dotenv>=1.0
+
+# Dashboard
+streamlit>=1.30.0
+
+# Database drivers (install as needed)
+# psycopg2-binary>=2.9    # PostgreSQL (ASCM, PromptOpt)
+# oracledb>=2.0           # Oracle (ATE)
